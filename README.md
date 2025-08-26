@@ -18,25 +18,8 @@ This CLI enables you to connect agents with specialized tools, making workflows 
 
 ## 📦 Integrated MCP Servers
 
-### 1. **Everything**
 
-Reference/test server providing prompts, resources, and tools.
-
-**Example Prompt:**
-
-```
-Agent: "What is the capital of France?"
-```
-
-**Result:**
-
-```
-Paris
-```
-
----
-
-### 2. **Fetch**
+### 1. **Fetch**
 
 Fetches and converts web content for efficient LLM usage.
 
@@ -55,7 +38,7 @@ Agent: "Fetch the latest news from https://example.com/news"
 
 ---
 
-### 3. **Filesystem**
+### 2. **Filesystem**
 
 Secure file operations with configurable access controls.
 
@@ -76,7 +59,7 @@ data/
 
 ---
 
-### 4. **Git**
+### 3. **Git**
 
 Tools to read, search, and manipulate Git repositories.
 
@@ -96,7 +79,7 @@ Agent: "Get the last 3 commits from the repo"
 
 ---
 
-### 5. **Memory**
+### 4. **Memory**
 
 Persistent memory system powered by a knowledge graph.
 
@@ -115,7 +98,7 @@ Blue
 
 ---
 
-### 6. **Sequential Thinking**
+### 5. **Sequential Thinking**
 
 Dynamic and reflective problem-solving through step-by-step reasoning.
 
