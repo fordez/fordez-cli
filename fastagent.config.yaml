@@ -40,13 +40,6 @@ mcp:
       roots:
         - uri: "file:///home/fordez/fordez-ai/fordez-agents"
           name: "proyecto"
-        - uri: "file:///home/fordez/fordez-workspace"
-          name: "workspace"
     git:
       command: "uvx"
-      args:
-        [
-          "mcp-server-git",
-          "--repository",
-          "https://github.com/fordez/fordez-cli.git",
-        ]
+      args: ["mcp-server-git", "--repository", "/home/fordez/fordez-ai/"]
