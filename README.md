@@ -1,8 +1,5 @@
-Here’s the **English version** of your README with integrated examples for each MCP server:
 
----
-
-# fordez-cli
+# Fordez-cli
 
 **fordez-cli** is a command-line tool for programming AI-driven tasks through the creation and orchestration of AI agents integrated with **MCP (Model Context Protocol) servers**.
 
