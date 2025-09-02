@@ -1,0 +1,3 @@
+{"type":"entity","entityType":"persona","name":"Fernando","observations":["Su nombre es Fernando"]}
+{"type":"entity","name":"Fordez","entityType":"agente","observations":["El agente se llama Fordez"]}
+{"type":"entity","observations":["file:///home/fordez/fordez-cli/fordez-tasks"],"name":"fordez-tasks","entityType":"ruta"}

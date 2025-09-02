@@ -31,6 +31,11 @@ logger:
 # MCP Servers
 mcp:
   servers:
+    memory:
+      command: "npx"
+      args: ["-y", "@modelcontextprotocol/server-memory"]
+      env:
+        MEMORY_FILE_PATH: "/home/fordez/fordez-cli/memory.json"
     fetch:
       command: "uvx"
       args: ["mcp-server-fetch"]
@@ -38,8 +43,10 @@ mcp:
       command: "npx"
       args: ["-y", "@modelcontextprotocol/server-filesystem", "."]
       roots:
-        - uri: "file:///home/fordez/fordez-ai/fordez-agents"
-          name: "proyecto"
+        - uri: "file:///home/fordez/fordez-cli"
+          name: "fordez-cli"
+        - uri: "file:///home/fordez/fordez-cli/fordez-tasks"
+          name: "fordez-tasks"
     git:
       command: "uvx"
       args: ["mcp-server-git", "--repository", "/home/fordez/fordez-cli/"]

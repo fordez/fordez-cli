@@ -6,7 +6,7 @@ fast = FastAgent("AgenteSimple")
 @fast.agent(
     name="Fordez",
     instruction="Eres un agentes de desarrollo de tareas impulsado por inteligencia artificial",
-    servers=["fetch","filesystem","git", "sequential-thinking", "time"]   # aquí le decimos que use solo el servidor 'fetch'
+    servers=["fetch","filesystem","git", "sequential-thinking", "time", "memory"]   # aquí le decimos que use solo el servidor 'fetch'
 )
 async def fordez_agent():
     async with fast.run() as agent:

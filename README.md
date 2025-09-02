@@ -1,181 +1,130 @@
+# Fordez + Uv — Proyecto Completo (librería, YAML e Inferencia)
 
-# Fordez-cli
-
-**fordez-cli** is a command-line tool for programming AI-driven tasks through the creation and orchestration of AI agents integrated with **MCP (Model Context Protocol) servers**.
-
-This CLI enables you to connect agents with specialized tools, making workflows dynamic, modular, and extensible.
-
----
-
-## 🚀 Features
-
-* Create and orchestrate AI agents.
-* Connect to MCP servers for enhanced task execution.
-* Modular design for easy extension.
-* Efficient workflow automation with AI-powered logic.
+Este repositorio contiene la librería **Fordez**, lista para instalar con **uv**, empaquetada con:
+- Servidor MCP basado en FastAPI (opcional con `fastmcp`).
+- Agente interactivo con FastAgent (opcional con `mcp-agent` o `fast-agent-mcp`).
+- Configuración centralizada en **YAML** (`config/fordez.yaml`).
+- Scripts de entrada (entry points) listos para ejecutar.
 
 ---
 
-## 📦 Integrated MCP Servers
-
-
-### 1. **Fetch**
-
-Fetches and converts web content for efficient LLM usage.
-
-**Example Prompt:**
+## 📁 Estructura del repositorio
 
 ```
-Agent: "Fetch the latest news from https://example.com/news"
-```
-
-**Result:**
-
-```
-[Article Title] Breaking News: Example Headline
-[Summary] The article reports on...
+fordez-uv/
+├── .gitignore
+├── LICENSE
+├── README.md
+├── pyproject.toml
+├── config/
+│   └── fordez.yaml
+├── src/
+│   └── fordez/
+│       ├── __init__.py
+│       ├── config.py
+│       ├── mcp.py
+│       ├── tools.py
+│       ├── agent.py
+│       └── agent_client.py
+├── tests/
+│   └── test_basic.py
+└── docker/
+    ├── Dockerfile
+    └── docker-compose.yml
 ```
 
 ---
 
-### 2. **Filesystem**
-
-Secure file operations with configurable access controls.
-
-**Example Prompt:**
-
-```
-Agent: "List all files in ./data"
-```
-
-**Result:**
-
-```
-data/
- ├── report1.txt
- ├── dataset.csv
- └── summary.md
-```
-
----
-
-### 3. **Git**
-
-Tools to read, search, and manipulate Git repositories.
-
-**Example Prompt:**
-
-```
-Agent: "Get the last 3 commits from the repo"
-```
-
-**Result:**
-
-```
-1. [abc123] Fix bug in data pipeline
-2. [def456] Add README documentation
-3. [ghi789] Initial commit
-```
-
----
-
-### 4. **Memory**
-
-Persistent memory system powered by a knowledge graph.
-
-**Example Prompt:**
-
-```
-Agent: "Remember that John's favorite color is blue"
-Agent: "What is John's favorite color?"
-```
-
-**Result:**
-
-```
-Blue
-```
-
----
-
-### 5. **Sequential Thinking**
-
-Dynamic and reflective problem-solving through step-by-step reasoning.
-
-**Example Prompt:**
-
-```
-Agent: "Plan steps to cook pasta"
-```
-
-**Result:**
-
-```
-1. Boil water
-2. Add pasta
-3. Cook for 10 minutes
-4. Drain water
-5. Serve with sauce
-```
-
----
-
-### 7. **Time**
-
-Time and timezone conversion capabilities.
-
-**Example Prompt:**
-
-```
-Agent: "Convert 3 PM EST to PST"
-```
-
-**Result:**
-
-```
-12 PM PST
-```
-
----
-
-## 🛠️ Installation
+## 🚀 Instalación
 
 ```bash
-git clone https://github.com/fordez/fordez-cli.git
-cd fordez-cli
-pip install -r requirements.txt
+# Instalar librería en modo editable
+task run python -m pip install -e .
+
+# Agregar dependencias opcionales
+uv add fastmcp          # Para servidor MCP
+uv add mcp-agent rich   # Para agente interactivo
+uv add fast-agent-mcp   # Para cliente LLM
 ```
 
 ---
 
-## ⚡ Usage
+## ▶️ Ejecución
 
+### Servidor MCP
 ```bash
-python fordez.py
+# Usando script entrypoint
+uv run fordez-mcp
+
+# O con uvicorn directamente
+uv run uvicorn fordez.tools:app --reload --port 8000
 ```
 
-Then interact with the CLI to create agents and connect them with MCP servers.
+### Agente interactivo
+```bash
+uv run fordez-agent
+```
+
+### Cliente que consume tools
+```bash
+uv run python -m fordez.agent_client
+```
 
 ---
 
-## 🔮 Roadmap
+## ⚙️ Configuración YAML
 
-* Add more MCP servers (Google Sheets, Salesforce, HubSpot).
-* Extend orchestration logic for multi-agent workflows.
-* Add voice input/output capabilities.
+Archivo: `config/fordez.yaml`
+
+Ejemplo:
+```yaml
+default_model: gemini2
+
+logger:
+  level: "info"
+  progress_display: true
+  show_chat: true
+  show_tools: true
+
+mcp:
+  servers:
+    fetch:
+      command: "uvx"
+      args: ["mcp-server-fetch"]
+```
+
+📌 Variables como `${DB_PASSWORD}` se expanden desde el entorno.
 
 ---
 
-## 🤝 Contributing
+## 🐳 Docker
 
-Contributions are welcome! Please open an issue or submit a pull request.
+Construir imagen:
+```bash
+docker build -t fordez .
+```
+
+Levantar con docker-compose:
+```bash
+docker-compose up --build
+```
 
 ---
 
-## 📄 License
+## ✅ Checklist
 
-MIT License.
+- [ ] `uv run python -m pip install -e .` funciona.
+- [ ] `uv run fordez-mcp` abre `/health` → `{ "status": "ok" }`.
+- [ ] `uv run fordez-agent` inicia modo interactivo.
+- [ ] `GET /config` devuelve configuración redactada.
 
 ---
 
-👉 Do you want me to also add a **usage demo section** (like a step-by-step CLI session example showing agent creation + connecting with one MCP server)? That would make the README feel even more practical.
+## 📜 Licencia
+
+Este proyecto está bajo la licencia **MIT**.
+
+---
+
+💡 Puedes usar este repositorio como **base para GitHub/GitLab** y extenderlo con CI/CD (GitHub Actions), Kubernetes o Dapr según tus necesidades.
+
